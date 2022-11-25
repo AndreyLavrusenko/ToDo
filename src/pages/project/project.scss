@@ -1,0 +1,78 @@
+.project {
+    position: relative;
+
+    &__items {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__create {
+        border: #00c0f5;
+        background-color: #07C4F8;
+        color: white;
+
+        border-radius: 30px;
+        font-size: 20px;
+
+        cursor: pointer;
+        text-align: center;
+        transition: .7s ease-in-out;
+
+        padding: 20px 25px;
+
+        position: absolute;
+        left: 50%;
+        bottom: -100px;
+        transform: translateX(-50%);
+
+        &:hover {
+            background-color: #00abdc;
+        }
+    }
+
+    &__item {
+        width: 340px;
+        height: 200px;
+
+        border-radius: 30px;
+        color: white;
+
+        padding: 20px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        transition: all .5s;
+
+        cursor: pointer;
+        text-decoration: none;
+
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+
+        &:hover {
+            transform: scale(.95);
+        }
+
+        &-top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        &-sticker {
+            font-size: 50px;
+        }
+
+        &-title {
+            font-size: 28px;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        &-count {
+            font-size: 20px;
+        }
+    }
+}

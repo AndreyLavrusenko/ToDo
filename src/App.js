@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {Routes, Route} from "react-router-dom";
+import ProjectContainer from "./pages/project/ProjectContainer";
+import TasksContainer from "./pages/tasks/TasksContainer";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+const App = () => {
+    return (
+        <div className="container">
+            <Routes>
+                <Route path='/' element={<ProjectContainer/>}/>
+                <Route path='/tasks/:id' element={<TasksContainer/>}/>
+            </Routes>
+        </div>
+    );
+};
 
 export default App;
