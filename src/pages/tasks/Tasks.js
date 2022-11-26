@@ -5,7 +5,7 @@ import './tasks.scss'
 import TasksBorder from "../../components/tasks-border/TasksBorder";
 import {useParams} from "react-router-dom";
 
-const Tasks = ({tasksPage, updateTasksState, updateCompleteTask}) => {
+const Tasks = ({tasksPage, updateTasksState, updateCompleteTask, updateCompleteSubtask}) => {
     const params = useParams();
 
     const projectId = params.id
@@ -50,6 +50,7 @@ const Tasks = ({tasksPage, updateTasksState, updateCompleteTask}) => {
                         rerenderArr={rerenderArr}
                         tasksArr={tasks}
                         updateCompleteTask={updateCompleteTask}
+                        updateCompleteSubtask={updateCompleteSubtask}
                     />
                 ))}
 

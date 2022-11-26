@@ -11,7 +11,8 @@ const TasksItem = ({
                        currentBoard,
                        setCurrentItem,
                        currentItem,
-                       updateCompleteTask
+                       updateCompleteTask,
+                       updateCompleteSubtask,
                    }) => {
 
     const params = useParams();
@@ -69,15 +70,31 @@ const TasksItem = ({
     }
 
 
-    const handleCheckboxChange = (id) => {
-        updateCompleteTask(id, projectId)
+    const handleCheckboxChange = (id, status) => {
+        updateCompleteTask(id, projectId, status)
     }
 
+    const handlerCheckboxSubTasksChange = (subId, id, status) => {
+        // Id подзадачи, Id задачи, Id проекта
+        updateCompleteSubtask(subId, id, projectId, status)
+    }
 
     return (
         <>
             {
                 tasks.items.map((item, i) => {
+
+                    let priority = null
+
+                    if (item.priority === "important") {
+                        priority = "🔴"
+                    } else if (item.priority === "middle") {
+                        priority = "🟠"
+                    } else {
+                        priority = "🟢"
+                    }
+
+
                     return (
                         <div
                             className="task__border-tasks"
@@ -92,26 +109,55 @@ const TasksItem = ({
                             <div className="tasks__card">
                                 <div className="tasks__card-header">
                                     <h3 className="tasks__card-title"
-                                        style={item.isComplete ? {textDecoration: 'line-through'} : null}>{item.title}</h3>
-                                    {/*<div className="round">*/}
+                                        style={item.isComplete ? {textDecoration: 'line-through'} : null}
+                                    >
+                                        {item.isComplete ? item.title : priority + " " + item.title}
+                                    </h3>
+                                    <div className="round">
                                         <input
                                             type="checkbox"
                                             checked={item.isComplete}
-                                            onChange={() => handleCheckboxChange(item.id)}
+                                            id="checkbox"
+                                            readOnly={true}
                                         />
-                                        {/*<input*/}
-                                        {/*    type="checkbox"*/}
-                                        {/*    checked={item.isComplete}*/}
-                                        {/*    id="checkbox"*/}
-                                        {/*/>*/}
-                                        {/*<label*/}
-                                        {/*    htmlFor="checkbox"*/}
-                                        {/*    onClick={() => handleCheckboxChange(item.id)}*/}
-                                        {/*/>*/}
-                                    {/*</div>*/}
+                                        <label
+                                            htmlFor="checkbox"
+                                            onClick={() => handleCheckboxChange(item.id, item.isComplete)}
+                                        />
+                                    </div>
                                 </div>
                                 {item.desc ? <div className="tasks__card-desc">{item.desc}</div> : null}
                                 <hr style={{marginTop: "20px", height: "1px"}}/>
+                                <div className="tasks__card-time">
+                                    <div className="tasks__card-create"><span>Дата создания: </span>{item.created}</div>
+                                    <div className="tasks__card-create"><span>В работе уже: </span>{item.inWork}</div>
+                                    <div className="tasks__card-create"><span>Дата завершения: </span>{item.expiration}
+                                    </div>
+                                </div>
+                                <div className="tasks__card-subtasks">
+                                    {item.subtasks.length > 0
+                                        ? item.subtasks.map(subtask => {
+                                            return (
+                                                <div className="checkbox" key={subtask.id}>
+                                                    <input
+                                                        className="custom-checkbox"
+                                                        type="checkbox"
+                                                        id={subtask.id}
+                                                        checked={subtask.subtasksComplete}
+                                                        readOnly={true}
+                                                        name={subtask.id}
+                                                    />
+                                                    <label
+                                                        htmlFor={subtask.id}
+                                                        onClick={() => handlerCheckboxSubTasksChange(subtask.id, item.id, subtask.subtasksComplete)}
+                                                    >{subtask.title}
+                                                    </label>
+                                                </div>
+                                            )
+                                        })
+                                        : null
+                                    }
+                                </div>
                             </div>
                         </div>
                     )
