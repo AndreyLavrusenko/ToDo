@@ -1,6 +1,9 @@
 import React, {useEffect} from 'react';
 import PropTypes from "prop-types";
 import {useParams} from "react-router-dom";
+import pencil from '../../assets/img/edit.png'
+import trash from '../../assets/img/delete.png'
+import moment from "moment";
 
 
 const TasksItem = ({
@@ -13,6 +16,7 @@ const TasksItem = ({
                        currentItem,
                        updateCompleteTask,
                        updateCompleteSubtask,
+                       deleteTask,
                    }) => {
 
     const params = useParams();
@@ -79,6 +83,10 @@ const TasksItem = ({
         updateCompleteSubtask(subId, id, projectId, status)
     }
 
+    const handleDeleteTask = (id) => {
+        deleteTask(projectId, id)
+    }
+
     return (
         <>
             {
@@ -93,6 +101,14 @@ const TasksItem = ({
                     } else {
                         priority = "🟢"
                     }
+
+                    const startDate = new Date();
+
+                    const timeStart = moment(item.fullTimeCreate);
+                    const timeEnd  = moment(startDate);
+
+                    const diff = timeEnd.diff(timeStart);
+                    const diffDuration = moment.duration(diff);
 
 
                     return (
@@ -127,18 +143,25 @@ const TasksItem = ({
                                     </div>
                                 </div>
                                 {item.desc ? <div className="tasks__card-desc">{item.desc}</div> : null}
-                                <hr style={{marginTop: "20px", height: "1px"}}/>
+                                <div className="tasks__card-info">
+                                   <div>Статус: {tasks.title}</div>
+                                    <div>Номер: {Math.floor(item.id * 1000)}</div>
+                                </div>
                                 <div className="tasks__card-time">
                                     <div className="tasks__card-create"><span>Дата создания: </span>{item.created}</div>
-                                    <div className="tasks__card-create"><span>В работе уже: </span>{item.inWork}</div>
-                                    <div className="tasks__card-create"><span>Дата завершения: </span>{item.expiration}
+                                    <div className="tasks__card-create"><span>В работе уже: </span>
+                                        {diffDuration.days() ? diffDuration.days() + "д" : null}
+                                        {diffDuration.hours() ? diffDuration.hours() + "ч" : null}
+                                        {diffDuration.minutes() ? diffDuration.minutes() + "м" : null}
+                                    </div>
+                                    <div className="tasks__card-create"><span>Дата завершения: </span>{item.expiration ? item.expiration : 'Бессрочный'}
                                     </div>
                                 </div>
                                 <div className="tasks__card-subtasks">
                                     {item.subtasks.length > 0
                                         ? item.subtasks.map(subtask => {
                                             return (
-                                                <div className="checkbox" key={subtask.id}>
+                                                <div className="checkbox" key={subtask.id} style={{marginBottom: "10px"}}>
                                                     <input
                                                         className="custom-checkbox"
                                                         type="checkbox"
@@ -157,6 +180,11 @@ const TasksItem = ({
                                         })
                                         : null
                                     }
+                                    <button>+ Добавить подзадачу</button>
+                                </div>
+                                <div className="tasks__card-change">
+                                    <img src={pencil} alt="Редактировать" style={{marginBottom: "20px"}}/>
+                                    <img src={trash} onClick={() => handleDeleteTask(item.id)} alt="Удалить"/>
                                 </div>
                             </div>
                         </div>

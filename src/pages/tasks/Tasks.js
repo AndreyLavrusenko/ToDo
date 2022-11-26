@@ -5,7 +5,9 @@ import './tasks.scss'
 import TasksBorder from "../../components/tasks-border/TasksBorder";
 import {useParams} from "react-router-dom";
 
-const Tasks = ({tasksPage, updateTasksState, updateCompleteTask, updateCompleteSubtask}) => {
+const Tasks = ({tasksPage, updateTasksState, updateCompleteTask, updateCompleteSubtask, createNewTask, deleteTask}) => {
+    const [createModalActive, setCreateModalActive] = useState(false)
+
     const params = useParams();
 
     const projectId = params.id
@@ -35,7 +37,10 @@ const Tasks = ({tasksPage, updateTasksState, updateCompleteTask, updateCompleteS
             <Header title={"Задачи"}/>
 
             <TaskSetting
+                createModalActive={createModalActive}
+                setCreateModalActive={setCreateModalActive}
                 tasks={tasks}
+                createNewTask={createNewTask}
             />
 
             <div className="tasks__border">
@@ -51,6 +56,7 @@ const Tasks = ({tasksPage, updateTasksState, updateCompleteTask, updateCompleteS
                         tasksArr={tasks}
                         updateCompleteTask={updateCompleteTask}
                         updateCompleteSubtask={updateCompleteSubtask}
+                        deleteTask={deleteTask}
                     />
                 ))}
 

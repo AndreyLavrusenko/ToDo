@@ -1,0 +1,143 @@
+.modal {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(15, 15, 15, 0.4);
+    position: fixed;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s;
+    opacity: 0;
+    visibility: hidden;
+
+    &__content {
+        cursor: default;
+        position: relative;
+        padding: 20px;
+        z-index: 200;
+        background: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 14px;
+        width: 634px;
+        height: 653px;
+    }
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &__header {
+        margin-top: -20px;
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+
+            font-weight: 400;
+            font-size: 30px;
+        }
+    }
+}
+
+
+.modal__create {
+    margin: 20px 0;
+
+
+    label {
+        font-size: 20px;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin: 8px 0 20px;
+    }
+
+    textarea, select {
+        width: 100%;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin: 8px 0 20px;
+    }
+
+    .input-file {
+        position: relative;
+        margin-top: 20px;
+        display: inline-block;
+    }
+    .input-file-btn {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        outline: none;
+        text-decoration: none;
+        font-size: 14px;
+        vertical-align: middle;
+        color: rgb(255 255 255);
+        text-align: center;
+        border-radius: 4px;
+        background-color: #1363E7;
+        line-height: 22px;
+        height: 40px;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        border: none;
+        margin: 0;
+        transition: background-color 0.2s;
+    }
+    .input-file-text {
+        padding: 0 10px;
+        line-height: 40px;
+        font-size: 16px;
+        display: inline-block;
+    }
+    .input-file input[type=file] {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        display: block;
+        width: 0;
+        height: 0;
+    }
+
+    .input-file input[type=file]:focus + .input-file-btn {
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+
+    .input-file:hover .input-file-btn {
+        background-color: #0752ce;
+    }
+    .input-file:active .input-file-btn {
+        background-color: #1363E7;
+    }
+
+    button {
+        position: absolute;
+        bottom: 40px;
+        right: 40px;
+
+        background-color: #1363E7;
+        color: white;
+        font-size: 18px;
+        font-weight: 300;
+
+        border: none;
+        border-radius: 10px;
+
+        padding: 10px 15px;
+        cursor: pointer;
+    }
+}

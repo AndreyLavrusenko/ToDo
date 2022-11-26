@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import CreateModal from "../modals/modal-create/CreateModal";
 
-const TaskSetting = ({tasks}) => {
+const TaskSetting = ({tasks, createModalActive, setCreateModalActive, createNewTask}) => {
     const [search, setSearch] = useState("")
-
     const [tasksItem, setTasksItem] = useState([])
+
 
     useEffect(() => {
         const arr = [];
@@ -22,34 +23,43 @@ const TaskSetting = ({tasks}) => {
 
 
     return (
-        <div className="tasks__setting">
-            <div className="tasks__dropdown">
-                <input
-                    type="text"
-                    name="search"
-                    value={search}
-                    autoComplete="off"
-                    placeholder={`Введите номер или текст задачи...`}
-                    onChange={e => setSearch(e.target.value)}
-                />
-                {
-                    filteredTasks.length !== tasksItem.length
+        <>
+            <div className="tasks__setting">
+                <div className="tasks__dropdown">
+                    <input
+                        type="text"
+                        name="search"
+                        value={search}
+                        autoComplete="off"
+                        placeholder={`Введите номер или текст задачи...`}
+                        onChange={e => setSearch(e.target.value)}
+                    />
+                    {
+                        filteredTasks.length !== tasksItem.length
 
-                        ? <div className="tasks__dropdown-content">
-                            {filteredTasks.map(item => (
-                                <p
-                                    key={item.id}
-                                    onClick={() => console.log(item.id)}
-                                >{item.title}
-                                </p>
-                            ))}
-                        </div>
+                            ? <div className="tasks__dropdown-content">
+                                {filteredTasks.map(item => (
+                                    <p
+                                        key={item.id}
+                                        onClick={() => console.log(item.id)}
+                                    >{item.title}
+                                    </p>
+                                ))}
+                            </div>
 
-                        : null
-                }
+                            : null
+                    }
+                </div>
+                <button
+                    onClick={() => {
+                        setCreateModalActive(true)
+                    }}
+                >+ Добавить задачу
+                </button>
             </div>
-            <button>+ Добавить задачу</button>
-        </div>
+
+            <CreateModal createNewTask={createNewTask} createModalActive={createModalActive} setCreateModalActive={setCreateModalActive} />
+        </>
     );
 };
 

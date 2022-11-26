@@ -1,6 +1,8 @@
 const UPDATE_TASKS_STATE = 'UPDATE_TASKS_STATE';
 const UPDATE_COMPLETE_TASKS = 'UPDATE_COMPLETE_TASKS'
 const UPDATE_COMPLETE_SUBTASKS = 'UPDATE_COMPLETE_SUBTASKS'
+const CREATE_NEW_TASK = 'CREATE_NEW_TASK'
+const DELETE_TASK = 'DELETE_TASK'
 
 
 const initialState = {
@@ -17,7 +19,7 @@ const initialState = {
                             title: "Пойти в магазин",
                             desc: "Зайти в пятерочку",
                             created: "23.11.2022",
-                            inWork: "4h 12m",
+                            fullTimeCreate: "",
                             expiration: "29.11.2022",
                             priority: "low",
                             files: [],
@@ -34,7 +36,7 @@ const initialState = {
                             title: "Купить корм",
                             desc: "Зайти в пятерочку",
                             created: "23.11.2022",
-                            inWork: "4h 12m",
+                            fullTimeCreate: "",
                             expiration: "29.11.2022",
                             priority: "important",  // important middle low
                             files: [],
@@ -173,6 +175,7 @@ if (!localStorage.getItem("tasksProject")) {
 
 const tasksReducer = (state = JSON.parse(localStorage.getItem("tasksProject")), action) => {
     switch (action.type) {
+
         case UPDATE_TASKS_STATE:
             localStorage.setItem("tasksProject", JSON.stringify(state))
 
@@ -252,6 +255,56 @@ const tasksReducer = (state = JSON.parse(localStorage.getItem("tasksProject")), 
                 })
             }
 
+        case CREATE_NEW_TASK:
+            return {
+                ...state,
+                tasksProject: state.tasksProject.map(item => {
+                    if (+item.projectId === +action.projectId) {
+
+                        const newTask = {
+                            id: action.array.id,
+                            title: action.array.title,
+                            desc: action.array.desc,
+                            created: action.array.created,
+                            fullTimeCreate: action.array.fullTimeCreate,
+                            expiration: action.array.expiration,
+                            priority: action.array.select,
+                            files: [],
+                            subtasks: [],
+                            comments: [],
+                            isComplete: false
+                        }
+
+                        item.tasks[0].items.unshift(newTask)
+
+                        localStorage.setItem("tasksProject", JSON.stringify(state))
+                    }
+                    return item
+                })
+            }
+
+        case DELETE_TASK:
+            console.log(action.id)
+            return {
+                ...state,
+                tasksProject: state.tasksProject.map(item => {
+                    if (+item.projectId === +action.projectId) {
+                        item.tasks.map(task => {
+                            task.items.map(taskId => {
+                                if (taskId.id === action.id) {
+                                    // Удаление сделанной задачи из спсика
+                                    const currentIndex = task.items.indexOf(taskId)
+                                    task.items.splice(currentIndex, 1)
+                                }
+                                return taskId
+                            })
+                            return task
+                        })
+                        localStorage.setItem("tasksProject", JSON.stringify(state))
+                    }
+                    return item
+                })
+            }
 
         default:
             return state;
@@ -271,5 +324,12 @@ export const updateCompleteSubtask = (subStatusId, itemId, projectId, status) =>
     return {type: UPDATE_COMPLETE_SUBTASKS, subStatusId, itemId, projectId, status}
 }
 
+export const createNewTask = (projectId, array) => {
+    return {type: CREATE_NEW_TASK, projectId, array}
+}
+
+export const deleteTask = (projectId, id) => {
+    return {type: DELETE_TASK, projectId, id}
+}
 
 export default tasksReducer

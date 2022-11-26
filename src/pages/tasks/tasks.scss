@@ -2,8 +2,6 @@
 
 .tasks {
     width: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
 
     &__dropdown {
         position: relative;
@@ -116,11 +114,9 @@
 
                 width: 85%;
 
-                display: flex;
-                align-items: center;
 
                 border-radius: 20px;
-                cursor: pointer;
+                cursor: grab;
                 transition: all .5s;
 
                 padding: 20px;
@@ -138,6 +134,21 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    &-change {
+        margin-top: 20px;
+
+        img {
+            display: block;
+            cursor: pointer;
+
+            margin-left: auto;
+
+            width: 30px;
+            height: 30px;
+
+        }
     }
 
     &-title {
@@ -161,15 +172,37 @@
     &-create {
         opacity: .5;
         padding: 5px 0;
+
         span {
             opacity: .7;
         }
+    }
+
+    &-info {
+        margin-top: 20px;
+
+        border-top: 1px solid gray;
+        border-bottom: 1px solid gray;
+
+        height: 50px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
 
     &-subtasks {
         padding: 10px;
         margin-top: 10px;
+
+        button {
+            background-color: inherit;
+            color:#0b76ef;
+
+            border: none;
+            cursor: pointer;
+        }
 
         .custom-checkbox {
             position: absolute;
