@@ -5,7 +5,7 @@ import './tasks.scss'
 import TasksBorder from "../../components/tasks-border/TasksBorder";
 import {useParams} from "react-router-dom";
 
-const Tasks = ({tasksPage, updateTasksState}) => {
+const Tasks = ({tasksPage, updateTasksState, updateCompleteTask}) => {
     const params = useParams();
 
     const projectId = params.id
@@ -34,13 +34,24 @@ const Tasks = ({tasksPage, updateTasksState}) => {
         <section className="tasks">
             <Header title={"Задачи"}/>
 
-            <TaskSetting/>
+            <TaskSetting
+                tasks={tasks}
+            />
 
             <div className="tasks__border">
                 {tasks.map(item => (
-                    <TasksBorder currentItem={currentItem} setCurrentItem={setCurrentItem} currentBoard={currentBoard} setCurrentBoard={setCurrentBoard} key={item.id} tasks={item} rerenderArr={rerenderArr} tasksArr={tasks}/>
+                    <TasksBorder
+                        currentItem={currentItem}
+                        setCurrentItem={setCurrentItem}
+                        currentBoard={currentBoard}
+                        setCurrentBoard={setCurrentBoard}
+                        key={item.id}
+                        tasks={item}
+                        rerenderArr={rerenderArr}
+                        tasksArr={tasks}
+                        updateCompleteTask={updateCompleteTask}
+                    />
                 ))}
-
 
             </div>
 

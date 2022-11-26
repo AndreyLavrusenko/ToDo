@@ -2,7 +2,16 @@ import React, {useState} from 'react';
 import PropTypes from "prop-types";
 import TasksItem from "../tasks-item/TasksItem";
 
-const TasksBorder = ({tasks, rerenderArr, tasksArr, currentBoard, setCurrentBoard, currentItem, setCurrentItem}) => {
+const TasksBorder = ({
+                         tasks,
+                         rerenderArr,
+                         tasksArr,
+                         currentBoard,
+                         setCurrentBoard,
+                         currentItem,
+                         setCurrentItem,
+                         updateCompleteTask
+                     }) => {
 
     function dragOverHandler(e) {
         e.preventDefault()
@@ -45,8 +54,16 @@ const TasksBorder = ({tasks, rerenderArr, tasksArr, currentBoard, setCurrentBoar
         >
             <h2 className="tasks__border-title">{tasks.title}</h2>
 
-            <TasksItem tasks={tasks} rerenderArr={rerenderArr} currentItem={currentItem} setCurrentItem={setCurrentItem}
-                       tasksArr={tasksArr} currentBoard={currentBoard} setCurrentBoard={setCurrentBoard}/>
+            <TasksItem
+                updateCompleteTask={updateCompleteTask}
+                tasks={tasks}
+                rerenderArr={rerenderArr}
+                currentItem={currentItem}
+                setCurrentItem={setCurrentItem}
+                tasksArr={tasksArr}
+                currentBoard={currentBoard}
+                setCurrentBoard={setCurrentBoard}
+            />
         </div>
     );
 };

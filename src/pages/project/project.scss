@@ -1,9 +1,11 @@
 .project {
     position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
 
     &__items {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
     }
 
     &__create {
@@ -31,14 +33,14 @@
     }
 
     &__item {
-        width: 340px;
-        height: 200px;
+        max-width: 100%;
+        height: 40px;
 
         border-radius: 30px;
-        color: white;
+        background-color: #E2EBFB;
+        color: #1363E7;
 
-        padding: 20px;
-        margin-right: 20px;
+        padding: 20px 0;
         margin-bottom: 20px;
         transition: all .5s;
 
@@ -57,17 +59,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
             height: 100%;
         }
 
         &-sticker {
             font-size: 50px;
+            margin-right: 20px;
         }
 
         &-title {
-            font-size: 28px;
-            font-weight: 500;
+            font-size: 24px;
+            font-weight: 400;
             margin-top: 5px;
         }
 

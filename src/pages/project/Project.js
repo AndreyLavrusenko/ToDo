@@ -12,13 +12,12 @@ const Project = ({projectPage}) => {
 
             <div className="project__items">
                 {
-                    projectPage.project.map(({id, title, sticker, color}) => (
-                        <ProjectItem key={id} id={id} title={title} sticker={sticker} color={color} />
+                    projectPage.project.map(({id, title, sticker}) => (
+                        <ProjectItem key={id} id={id} title={title} sticker={sticker} />
                     ))
                 }
             </div>
 
-            {/*<button className="project__create">+ Создать новый проект</button>*/}
         </div>
     );
 };
