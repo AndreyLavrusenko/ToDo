@@ -92,7 +92,7 @@ const TasksItem = ({
             {
                 tasks.items.map((item, i) => {
 
-                    let priority = null
+                    let priority
 
                     if (item.priority === "important") {
                         priority = "🔴"
@@ -105,7 +105,7 @@ const TasksItem = ({
                     const startDate = new Date();
 
                     const timeStart = moment(item.fullTimeCreate);
-                    const timeEnd  = moment(startDate);
+                    const timeEnd = moment(startDate);
 
                     const diff = timeEnd.diff(timeStart);
                     const diffDuration = moment.duration(diff);
@@ -144,7 +144,7 @@ const TasksItem = ({
                                 </div>
                                 {item.desc ? <div className="tasks__card-desc">{item.desc}</div> : null}
                                 <div className="tasks__card-info">
-                                   <div>Статус: {tasks.title}</div>
+                                    <div>Статус: {tasks.title}</div>
                                     <div>Номер: {Math.floor(item.id * 1000)}</div>
                                 </div>
                                 <div className="tasks__card-time">
@@ -154,14 +154,16 @@ const TasksItem = ({
                                         {diffDuration.hours() ? diffDuration.hours() + "ч" : null}
                                         {diffDuration.minutes() ? diffDuration.minutes() + "м" : null}
                                     </div>
-                                    <div className="tasks__card-create"><span>Дата завершения: </span>{item.expiration ? item.expiration : 'Бессрочный'}
+                                    <div className="tasks__card-create">
+                                        <span>Дата завершения: </span>{item.expiration ? item.expiration : 'Бессрочный'}
                                     </div>
                                 </div>
                                 <div className="tasks__card-subtasks">
                                     {item.subtasks.length > 0
                                         ? item.subtasks.map(subtask => {
                                             return (
-                                                <div className="checkbox" key={subtask.id} style={{marginBottom: "10px"}}>
+                                                <div className="checkbox" key={subtask.id}
+                                                     style={{marginBottom: "10px"}}>
                                                     <input
                                                         className="custom-checkbox"
                                                         type="checkbox"
@@ -186,6 +188,15 @@ const TasksItem = ({
                                     <img src={pencil} alt="Редактировать" style={{marginBottom: "20px"}}/>
                                     <img src={trash} onClick={() => handleDeleteTask(item.id)} alt="Удалить"/>
                                 </div>
+
+                                {item.files
+                                    ? <div className="tasks__card-file">
+                                        <a download={true} href={`http://localhost:5001/uploads/${item.files}`}>
+                                            Скачать файл {item.files.length > 25 ? item.files.substring(0, 25)+'...' : item.files}
+                                        </a>
+                                    </div>
+                                    : null
+                                }
                             </div>
                         </div>
                     )

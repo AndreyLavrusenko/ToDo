@@ -261,6 +261,8 @@ const tasksReducer = (state = JSON.parse(localStorage.getItem("tasksProject")), 
                 tasksProject: state.tasksProject.map(item => {
                     if (+item.projectId === +action.projectId) {
 
+                        console.log(action.array.files)
+
                         const newTask = {
                             id: action.array.id,
                             title: action.array.title,
@@ -269,7 +271,7 @@ const tasksReducer = (state = JSON.parse(localStorage.getItem("tasksProject")), 
                             fullTimeCreate: action.array.fullTimeCreate,
                             expiration: action.array.expiration,
                             priority: action.array.select,
-                            files: [],
+                            files: action.array.files,
                             subtasks: [],
                             comments: [],
                             isComplete: false

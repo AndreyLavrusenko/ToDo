@@ -136,6 +136,16 @@
         align-items: center;
     }
 
+    &-file {
+
+        a {
+            width: 60px;
+
+            text-decoration: none;
+            color: #1363E7;
+        }
+    }
+
     &-change {
         margin-top: 20px;
 

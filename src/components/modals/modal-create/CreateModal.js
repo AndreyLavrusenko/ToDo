@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import '../modal.scss'
 import {useParams} from "react-router-dom";
 import moment from "moment";
+import axios from "axios";
 
 
 const CreateModal = ({setCreateModalActive, createModalActive, createNewTask}) => {
@@ -15,7 +16,6 @@ const CreateModal = ({setCreateModalActive, createModalActive, createNewTask}) =
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
-
     const hour = date.getHours();
     const minute = date.getMinutes()
 
@@ -27,9 +27,33 @@ const CreateModal = ({setCreateModalActive, createModalActive, createNewTask}) =
         expiration: "",
         select: "low",
     })
+    const [file, setFile] = useState(null)
 
     const onChange = e => {
         setValues({...values, [e.target.name]: e.target.value})
+    }
+
+    const handleFileChange = e => {
+        setFile(e.target.files[0])
+    }
+
+    const handleUploadImg = async () => {
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            await axios.post("http://localhost:5001/files", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            })
+        } catch (err) {
+            console.error(err)
+        }
+
+
     }
 
 
@@ -40,7 +64,8 @@ const CreateModal = ({setCreateModalActive, createModalActive, createNewTask}) =
             ...values,
             id: Math.random().toString(),
             created: `${hour < 10 ? '0'+hour : hour}:${minute < 10 ? '0'+minute : minute} ${day}-${month}-${year}`,
-            fullTimeCreate: new Date() / 1
+            fullTimeCreate: new Date() / 1,
+            files: file.name
         }
 
         // Отправляем данные в redux
@@ -83,13 +108,18 @@ const CreateModal = ({setCreateModalActive, createModalActive, createNewTask}) =
                         </select>
 
                         <label className="input-file">
-                            <input onChange={e => onChange(e)} type="file" name="file"/>
+                            <input onChange={(e) => handleFileChange(e)} type="file" name="file"/>
                             <span className="input-file-btn">Выберите файл</span>
-                            <span className="input-file-text">Максимум 10мб</span>
+                            <span className="input-file-text">
+                                {file
+                                    ? file.name.length > 40 ? file.name.substring(0, 40)+'...' : file.name
+                                    : "Максимальный размер 10мб"
+                                }
+                            </span>
                         </label>
 
                         <div>
-                            <button type="submit">Создать</button>
+                            <button type="submit" onClick={handleUploadImg}>Создать</button>
                         </div>
                     </form>
                 </div>
