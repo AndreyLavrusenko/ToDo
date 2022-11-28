@@ -1,0 +1,120 @@
+@media (max-width: 1570px) {
+    .container {
+        max-width: 1250px;
+    }
+
+    .tasks__card-title {
+        font-size: 19px;
+    }
+
+    .tasks__card .round label {
+        width: 24px;
+        height: 24px;
+    }
+
+    .tasks__card-create {
+        font-size: 14px;
+    }
+
+    .tasks__card-subtasks .custom-checkbox + label {
+        font-size: 16px;
+    }
+
+    .tasks__card-change {
+        img {
+            width: 24px;
+            height: 24px;
+        }
+    }
+}
+
+
+@media (max-width: 1200px) {
+    .container {
+        margin: 0 auto;
+        padding: 0 10px;
+    }
+
+    .tasks__border-item {
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 1020px) {
+    .tasks__border {
+        display: block;
+    }
+
+    .tasks__card-title {
+        font-size: 24px;
+    }
+
+    .tasks__card .round label {
+        width: 30px;
+        height: 30px;
+    }
+
+    .tasks__card-create {
+        font-size: 16px;
+    }
+
+    .tasks__card-subtasks .custom-checkbox + label {
+        font-size: 18px;
+    }
+
+    .tasks__card-change {
+        img {
+            width: 28px;
+            height: 28px;
+        }
+    }
+
+    .tasks__border-item {
+        margin-left: 0;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+
+@media (max-width: 675px) {
+    .tasks__setting input {
+        width: 200px;
+    }
+}
+
+@media (max-width: 470px) {
+    .tasks__card-title {
+        font-size: 19px;
+    }
+
+    .tasks__card .round label {
+        width: 24px;
+        height: 24px;
+    }
+
+    .tasks__card-create {
+        font-size: 14px;
+    }
+
+    .tasks__card-subtasks .custom-checkbox + label {
+        font-size: 16px;
+    }
+
+    .tasks__card-change {
+        img {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    .tasks__setting button {
+        padding: 7px;
+        font-size: 14px;
+    }
+
+    .tasks__setting input {
+        width: 150px;
+        padding: 7px 10px;
+    }
+}

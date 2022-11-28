@@ -2,6 +2,7 @@ import React from 'react';
 import {Routes, Route} from "react-router-dom";
 import ProjectContainer from "./pages/project/ProjectContainer";
 import TasksContainer from "./pages/tasks/TasksContainer";
+import './styles/_media.scss'
 
 
 const App = () => {

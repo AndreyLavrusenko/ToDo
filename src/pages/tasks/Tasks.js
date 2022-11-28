@@ -29,6 +29,7 @@ const Tasks = ({
     const [currentBoard, setCurrentBoard] = useState([]) // Состояние для текущей доски
     const [currentItem, setCurrentItem] = useState([]) // Состояние для текущей задачи
 
+    const [selectSearch, setSelectSearch] = useState(null)
 
     const rerenderArr = (arr) => {
         setTasks(arr)
@@ -57,6 +58,7 @@ const Tasks = ({
                 setCreateModalActive={setCreateModalActive}
                 tasks={tasks}
                 createNewTask={createNewTask}
+                setSelectSearch={setSelectSearch}
             />
 
             <div className="tasks__border">
@@ -76,6 +78,7 @@ const Tasks = ({
                         addSubtask={addSubtask}
                         updateTask={updateTask}
                         deleteSubtask={deleteSubtask}
+                        selectSearch={selectSearch}
                     />
                 ))}
 

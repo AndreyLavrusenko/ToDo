@@ -15,6 +15,7 @@ const TasksItem = ({
                        addSubtask,
                        updateTask,
                        deleteSubtask,
+                       selectSearch,
                    }) => {
 
     const params = useParams();
@@ -84,6 +85,7 @@ const TasksItem = ({
                        tasks={tasks}
                        updateTask={updateTask}
                        deleteSubtask={deleteSubtask}
+                       selectSearch={selectSearch}
                        i={i}
                        key={i}
                    />

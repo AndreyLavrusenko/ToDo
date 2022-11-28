@@ -365,7 +365,6 @@ const tasksReducer = (state = JSON.parse(localStorage.getItem("tasksProject")), 
             }
 
         case DELETE_SUBTASK:
-            console.log(action.taskId)
 
             return {
                 ...state,

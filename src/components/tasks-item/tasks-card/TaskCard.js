@@ -18,6 +18,7 @@ const TaskCard = ({
                       tasks,
                       updateTask,
                       deleteSubtask,
+                      selectSearch,
                   }) => {
     const [isSubtask, setIsSubtask] = useState(false)
     const [subtaskText, setSubtaskText] = useState("")
@@ -45,6 +46,7 @@ const TaskCard = ({
         <div
             className="task__border-tasks"
             draggable={true}
+            style={selectSearch === item.id ? {border: "2px solid #1363E7"} : null}
             key={i}
             onDragOver={e => dragOverHandler(e)}
             onDragLeave={e => dragLeaveHandler(e)}
