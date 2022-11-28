@@ -5,8 +5,20 @@ import './tasks.scss'
 import TasksBorder from "../../components/tasks-border/TasksBorder";
 import {useParams} from "react-router-dom";
 import PropTypes from "prop-types";
+import {Helmet} from "react-helmet";
 
-const Tasks = ({tasksPage, updateTasksState, updateCompleteTask, updateCompleteSubtask, createNewTask, deleteTask}) => {
+const Tasks = ({
+                   tasksPage,
+                   updateTasksState,
+                   updateCompleteTask,
+                   updateCompleteSubtask,
+                   createNewTask,
+                   deleteTask,
+                   updateTask,
+                   addSubtask,
+                   deleteSubtask
+               }) => {
+
     const [createModalActive, setCreateModalActive] = useState(false)
 
     const params = useParams();
@@ -35,6 +47,9 @@ const Tasks = ({tasksPage, updateTasksState, updateCompleteTask, updateCompleteS
 
     return (
         <section className="tasks">
+            <Helmet>
+                <title>Задачи</title>
+            </Helmet>
             <Header title={"Задачи"}/>
 
             <TaskSetting
@@ -58,6 +73,9 @@ const Tasks = ({tasksPage, updateTasksState, updateCompleteTask, updateCompleteS
                         updateCompleteTask={updateCompleteTask}
                         updateCompleteSubtask={updateCompleteSubtask}
                         deleteTask={deleteTask}
+                        addSubtask={addSubtask}
+                        updateTask={updateTask}
+                        deleteSubtask={deleteSubtask}
                     />
                 ))}
 

@@ -3,12 +3,16 @@ import Header from "../../components/header/Header";
 import './project.scss'
 import ProjectItem from "../../components/project-item/ProjectItem";
 import PropTypes from "prop-types";
+import {Helmet} from "react-helmet";
 
 const Project = ({projectPage}) => {
 
 
     return (
         <div className="project">
+            <Helmet>
+                <title>Ваши проекты</title>
+            </Helmet>
             <Header title={"Ваши проекты"} />
 
             <div className="project__items">

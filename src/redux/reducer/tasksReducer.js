@@ -3,6 +3,9 @@ const UPDATE_COMPLETE_TASKS = 'UPDATE_COMPLETE_TASKS'
 const UPDATE_COMPLETE_SUBTASKS = 'UPDATE_COMPLETE_SUBTASKS'
 const CREATE_NEW_TASK = 'CREATE_NEW_TASK'
 const DELETE_TASK = 'DELETE_TASK'
+const ADD_SUBTASK = 'ADD_SUBTASK'
+const UPDATE_TASK = 'UPDATE_TASK'
+const DELETE_SUBTASK = 'DELETE_SUBTASK'
 
 
 const initialState = {
@@ -20,9 +23,9 @@ const initialState = {
                             desc: "Зайти в пятерочку",
                             created: "23.11.2022",
                             fullTimeCreate: "",
-                            expiration: "29.11.2022",
+                            expiration: "29-11-2022",
                             priority: "low",
-                            files: [],
+                            files: "",
                             subtasks: [
                                 {id: 's1', title: "Посмотреть есть ли свежий хлеб", subtasksComplete: false},
                                 {id: 's2', title: "Взять кофе на вынос", subtasksComplete: false}
@@ -39,7 +42,7 @@ const initialState = {
                             fullTimeCreate: "",
                             expiration: "29.11.2022",
                             priority: "important",  // important middle low
-                            files: [],
+                            files: "",
                             subtasks: [
                                 {id: 's3', title: "Посмотреть есть ли свежий хлеб", subtasksComplete: true},
                                 {id: 's4', title: "Взять кофе на вынос", subtasksComplete: false}
@@ -261,8 +264,6 @@ const tasksReducer = (state = JSON.parse(localStorage.getItem("tasksProject")), 
                 tasksProject: state.tasksProject.map(item => {
                     if (+item.projectId === +action.projectId) {
 
-                        console.log(action.array.files)
-
                         const newTask = {
                             id: action.array.id,
                             title: action.array.title,
@@ -286,7 +287,6 @@ const tasksReducer = (state = JSON.parse(localStorage.getItem("tasksProject")), 
             }
 
         case DELETE_TASK:
-            console.log(action.id)
             return {
                 ...state,
                 tasksProject: state.tasksProject.map(item => {
@@ -297,6 +297,95 @@ const tasksReducer = (state = JSON.parse(localStorage.getItem("tasksProject")), 
                                     // Удаление сделанной задачи из спсика
                                     const currentIndex = task.items.indexOf(taskId)
                                     task.items.splice(currentIndex, 1)
+                                }
+                                return taskId
+                            })
+                            return task
+                        })
+                        localStorage.setItem("tasksProject", JSON.stringify(state))
+                    }
+                    return item
+                })
+            }
+
+
+        case ADD_SUBTASK:
+            return {
+                ...state,
+                tasksProject: state.tasksProject.map(item => {
+                    // Если список совпадает
+                    if (+item.projectId === +action.projectId) {
+                        // Смотрим все состояние tasks
+                        item.tasks.map(task => {
+                            // Перебираем id в tasks
+                            task.items.map(taskId => {
+                                if (taskId.id === action.itemId) {
+                                    // Перебираем подзадачи
+                                    const newSubtask = {
+                                        id: action.subtaskId,
+                                        title: action.title,
+                                        subtasksComplete: false
+                                    }
+
+                                    taskId.subtasks.push(newSubtask)
+                                }
+                                return taskId
+                            })
+                            return task
+                        })
+                        localStorage.setItem("tasksProject", JSON.stringify(state))
+                    }
+                    return item
+                })
+            }
+
+
+        case UPDATE_TASK:
+
+            return {
+                ...state,
+                tasksProject: state.tasksProject.map(item => {
+                    if (+item.projectId === +action.projectId) {
+                        item.tasks.map(task => {
+                            task.items.map(taskId => {
+                                if (taskId.id === action.itemId) {
+                                    taskId.title = action.array.title;
+                                    taskId.desc = action.array.desc;
+                                    taskId.expiration = action.array.expiration;
+                                    taskId.priority = action.array.priority;
+                                }
+                                return taskId
+                            })
+                            return task
+                        })
+                        localStorage.setItem("tasksProject", JSON.stringify(state))
+                    }
+                    return item
+                })
+            }
+
+        case DELETE_SUBTASK:
+            console.log(action.taskId)
+
+            return {
+                ...state,
+                tasksProject: state.tasksProject.map(item => {
+                    // Если список совпадает
+                    if (+item.projectId === +action.projectId) {
+                        // Смотрим все состояние tasks
+                        item.tasks.map(task => {
+                            // Перебираем id в tasks
+                            task.items.map(taskId => {
+                                if (taskId.id === action.itemId) {
+                                    // Перебираем подзадачи
+                                    taskId.subtasks.map(sub => {
+                                        if (sub.id === action.taskId) {
+                                            // Удаление сделанной задачи из спсика
+                                            const currentIndex = taskId.subtasks.indexOf(sub)
+                                            taskId.subtasks.splice(currentIndex, 1)
+                                        }
+                                        return sub
+                                    })
                                 }
                                 return taskId
                             })
@@ -332,6 +421,18 @@ export const createNewTask = (projectId, array) => {
 
 export const deleteTask = (projectId, id) => {
     return {type: DELETE_TASK, projectId, id}
+}
+
+export const addSubtask = (itemId, projectId, title, subtaskId) => {
+    return {type: ADD_SUBTASK, itemId, projectId, title, subtaskId}
+}
+
+export const updateTask = (itemId, projectId, array) => {
+    return {type: UPDATE_TASK, itemId, projectId, array}
+}
+
+export const deleteSubtask = (itemId, projectId, taskId) => {
+    return {type: DELETE_SUBTASK, itemId, projectId, taskId}
 }
 
 export default tasksReducer

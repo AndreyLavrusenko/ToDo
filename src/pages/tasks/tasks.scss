@@ -137,10 +137,20 @@
     }
 
     &-subtasksinput {
-        background-color: inherit;
-        border: 1px solid gray;
-        border-radius: 16px;
-        padding: 10px 14px;
+        display: flex;
+
+        button {
+            margin-left: 7px;
+        }
+
+        input {
+            background-color: inherit;
+            border: 1px solid gray;
+            border-radius: 16px;
+
+            padding: 10px 14px;
+        }
+
     }
 
     &-file {

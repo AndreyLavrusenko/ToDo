@@ -13,6 +13,9 @@ const TasksBorder = ({
                          updateCompleteTask,
                          updateCompleteSubtask,
                          deleteTask,
+                         updateTask,
+                         addSubtask,
+                         deleteSubtask,
                      }) => {
 
     function dragOverHandler(e) {
@@ -67,6 +70,9 @@ const TasksBorder = ({
                 setCurrentBoard={setCurrentBoard}
                 updateCompleteSubtask={updateCompleteSubtask}
                 deleteTask={deleteTask}
+                addSubtask={addSubtask}
+                deleteSubtask={deleteSubtask}
+                updateTask={updateTask}
             />
         </div>
     );

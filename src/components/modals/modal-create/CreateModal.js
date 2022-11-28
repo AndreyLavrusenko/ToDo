@@ -64,14 +64,17 @@ const CreateModal = ({setCreateModalActive, createModalActive, createNewTask}) =
     const handleSubmitForm = (e) => {
         e.preventDefault();
 
-        const ext = ((/[.]/.exec(file.name)) ? /[^.]+$/.exec(file.name)[0] : undefined)
+        let ext = ""
+        if (file) {
+           ext = ((/[.]/.exec(file.name)) ? /[^.]+$/.exec(file.name)[0] : undefined)
+        }
 
         const createObj = {
             ...values,
             id: Math.random().toString(),
             created: `${hour < 10 ? '0'+hour : hour}:${minute < 10 ? '0'+minute : minute} ${day}-${month}-${year}`,
             fullTimeCreate: new Date() / 1,
-            files: values.title+'.'+ext
+            files: file ? values.title+'.'+ext : ""
         }
 
         // Отправляем данные в redux

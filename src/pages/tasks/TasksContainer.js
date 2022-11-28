@@ -2,12 +2,12 @@ import React from 'react';
 import {connect} from "react-redux";
 import Tasks from "./Tasks";
 import {
-    createNewTask, deleteTask,
+    addSubtask,
+    createNewTask, deleteSubtask, deleteTask,
     updateCompleteSubtask,
-    updateCompleteTask,
+    updateCompleteTask, updateTask,
     updateTasksState
 } from "../../redux/reducer/tasksReducer";
-import project from "../project/Project";
 
 
 const mapStateToProps = state => {
@@ -36,6 +36,18 @@ const mapDispatchToProps = dispatch => {
 
         deleteTask: (projectId, id) => {
             dispatch(deleteTask(projectId, id))
+        },
+
+        addSubtask: (itemId, projectId, title, subtaskId) => {
+            dispatch(addSubtask(itemId, projectId, title, subtaskId))
+        },
+
+        updateTask: (itemId, projectId, array) => {
+            dispatch(updateTask(itemId, projectId, array))
+        },
+
+        deleteSubtask: (itemId, projectId, taskId) => {
+            dispatch(deleteSubtask(itemId, projectId, taskId))
         }
     }
 }
