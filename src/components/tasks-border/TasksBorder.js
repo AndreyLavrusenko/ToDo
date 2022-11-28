@@ -77,4 +77,13 @@ export default TasksBorder;
 
 TasksBorder.propsType = {
     tasks: PropTypes.array,
+    rerenderArr: PropTypes.func,
+    tasksArr: PropTypes.array,
+    setCurrentBoard: PropTypes.func,
+    currentBoard: PropTypes.array,
+    setCurrentItem: PropTypes.func,
+    currentItem: PropTypes.number,
+    updateCompleteTask: PropTypes.func,
+    updateCompleteSubtask: PropTypes.func,
+    deleteTask: PropTypes.func,
 }

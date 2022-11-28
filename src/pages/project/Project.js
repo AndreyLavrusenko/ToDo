@@ -2,6 +2,7 @@ import React from 'react';
 import Header from "../../components/header/Header";
 import './project.scss'
 import ProjectItem from "../../components/project-item/ProjectItem";
+import PropTypes from "prop-types";
 
 const Project = ({projectPage}) => {
 
@@ -21,5 +22,9 @@ const Project = ({projectPage}) => {
         </div>
     );
 };
+
+Project.propsType = {
+    projectPage: PropTypes.array
+}
 
 export default Project;

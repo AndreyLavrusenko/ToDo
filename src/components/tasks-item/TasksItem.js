@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
 import {useParams} from "react-router-dom";
 import pencil from '../../assets/img/edit.png'
@@ -20,7 +20,6 @@ const TasksItem = ({
                    }) => {
 
     const params = useParams();
-
     const projectId = params.id
 
     useEffect(() => {
@@ -51,27 +50,27 @@ const TasksItem = ({
         setCurrentItem([])
     }
 
-    function dropHandler(e, tasks, item) {
-        e.preventDefault()
-
-        const currentIndex = currentBoard.indexOf(currentItem) // Индекс в массиве у текущей карточки, которую держим в руке
-        currentBoard.splice(currentIndex, 1)
-        // Получаем идекс элемента, над которым мы держим карточку
-        const dropIndex = tasks.items.indexOf(item)
-        tasks.items.splice(dropIndex + 1, 0, currentItem)
-
-        rerenderArr(tasksArr.map(b => {
-            if (b.id === tasks.id) {
-                return tasks
-            }
-
-            if (b.id === currentBoard.id) {
-                return currentBoard
-            }
-
-            return b;
-        }))
-    }
+    // function dropHandler(e, tasks, item) {
+    //     e.preventDefault()
+    //
+    //     const currentIndex = currentBoard.indexOf(currentItem) // Индекс в массиве у текущей карточки, которую держим в руке
+    //     currentBoard.splice(currentIndex, 1)
+    //     // Получаем идекс элемента, над которым мы держим карточку
+    //     const dropIndex = tasks.items.indexOf(item)
+    //     tasks.items.splice(dropIndex + 1, 0, currentItem)
+    //
+    //     rerenderArr(tasksArr.map(b => {
+    //         if (b.id === tasks.id) {
+    //             return tasks
+    //         }
+    //
+    //         if (b.id === currentBoard.id) {
+    //             return currentBoard
+    //         }
+    //
+    //         return b;
+    //     }))
+    // }
 
 
     const handleCheckboxChange = (id, status) => {
@@ -91,7 +90,6 @@ const TasksItem = ({
         <>
             {
                 tasks.items.map((item, i) => {
-
                     let priority
 
                     if (item.priority === "important") {
@@ -120,7 +118,7 @@ const TasksItem = ({
                             onDragLeave={e => dragLeaveHandler(e)}
                             onDragStart={e => dragStartHandler(e, tasks, item)}
                             onDragEnd={e => dragEndHandler(e)}
-                            onDrop={e => dropHandler(e, tasks, item)}
+                            // onDrop={e => dropHandler(e, tasks, item)}
                         >
                             <div className="tasks__card">
                                 <div className="tasks__card-header">
@@ -150,9 +148,9 @@ const TasksItem = ({
                                 <div className="tasks__card-time">
                                     <div className="tasks__card-create"><span>Дата создания: </span>{item.created}</div>
                                     <div className="tasks__card-create"><span>В работе уже: </span>
-                                        {diffDuration.days() ? diffDuration.days() + "д" : null}
-                                        {diffDuration.hours() ? diffDuration.hours() + "ч" : null}
-                                        {diffDuration.minutes() ? diffDuration.minutes() + "м" : null}
+                                        {diffDuration.days() ? diffDuration.days() + "д " : null}
+                                        {diffDuration.hours() ? diffDuration.hours() + "ч " : null}
+                                        {diffDuration.minutes() ? diffDuration.minutes() + "м " : null}
                                     </div>
                                     <div className="tasks__card-create">
                                         <span>Дата завершения: </span>{item.expiration ? item.expiration : 'Бессрочный'}
@@ -182,7 +180,15 @@ const TasksItem = ({
                                         })
                                         : null
                                     }
-                                    <button>+ Добавить подзадачу</button>
+
+                                    <input
+                                        type="text"
+                                        className="tasks__card-subtasksinput"
+                                        placeholder="Новая подзадача"
+
+                                    />
+
+
                                 </div>
                                 <div className="tasks__card-change">
                                     <img src={pencil} alt="Редактировать" style={{marginBottom: "20px"}}/>
@@ -192,7 +198,7 @@ const TasksItem = ({
                                 {item.files
                                     ? <div className="tasks__card-file">
                                         <a download={true} href={`http://localhost:5001/uploads/${item.files}`}>
-                                            Скачать файл {item.files.length > 25 ? item.files.substring(0, 25)+'...' : item.files}
+                                            Скачать вложенный файл
                                         </a>
                                     </div>
                                     : null
@@ -211,4 +217,13 @@ export default TasksItem;
 
 TasksItem.propsType = {
     tasks: PropTypes.array,
+    rerenderArr: PropTypes.func,
+    tasksArr: PropTypes.array,
+    setCurrentBoard: PropTypes.func,
+    currentBoard: PropTypes.array,
+    setCurrentItem: PropTypes.func,
+    currentItem: PropTypes.number,
+    updateCompleteTask: PropTypes.func,
+    updateCompleteSubtask: PropTypes.func,
+    deleteTask: PropTypes.func,
 }

@@ -4,6 +4,7 @@ import TaskSetting from "../../components/task-setting/TaskSetting";
 import './tasks.scss'
 import TasksBorder from "../../components/tasks-border/TasksBorder";
 import {useParams} from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Tasks = ({tasksPage, updateTasksState, updateCompleteTask, updateCompleteSubtask, createNewTask, deleteTask}) => {
     const [createModalActive, setCreateModalActive] = useState(false)
@@ -65,5 +66,14 @@ const Tasks = ({tasksPage, updateTasksState, updateCompleteTask, updateCompleteS
         </section>
     );
 };
+
+Tasks.propsType = {
+    tasksPage: PropTypes.array,
+    updateTasksState: PropTypes.func,
+    updateCompleteTask: PropTypes.func,
+    updateCompleteSubtask: PropTypes.func,
+    createNewTask: PropTypes.func,
+    deleteTask: PropTypes.func,
+}
 
 export default Tasks;

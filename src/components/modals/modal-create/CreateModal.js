@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import ReactDOM from "react-dom";
 import '../modal.scss'
 import {useParams} from "react-router-dom";
-import moment from "moment";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 
 const CreateModal = ({setCreateModalActive, createModalActive, createNewTask}) => {
@@ -41,7 +41,11 @@ const CreateModal = ({setCreateModalActive, createModalActive, createNewTask}) =
         if (!file) return;
 
         const formData = new FormData();
-        formData.append('file', file);
+
+        const ext = ((/[.]/.exec(file.name)) ? /[^.]+$/.exec(file.name)[0] : undefined)
+
+
+        formData.append('file', file, values.title+'.'+ext);
 
         try {
             await axios.post("http://localhost:5001/files", formData, {
@@ -60,12 +64,14 @@ const CreateModal = ({setCreateModalActive, createModalActive, createNewTask}) =
     const handleSubmitForm = (e) => {
         e.preventDefault();
 
+        const ext = ((/[.]/.exec(file.name)) ? /[^.]+$/.exec(file.name)[0] : undefined)
+
         const createObj = {
             ...values,
             id: Math.random().toString(),
             created: `${hour < 10 ? '0'+hour : hour}:${minute < 10 ? '0'+minute : minute} ${day}-${month}-${year}`,
             fullTimeCreate: new Date() / 1,
-            files: file.name
+            files: values.title+'.'+ext
         }
 
         // Отправляем данные в redux
@@ -129,5 +135,12 @@ const CreateModal = ({setCreateModalActive, createModalActive, createNewTask}) =
         document.getElementById('create-modal')
     )
 };
+
+
+CreateModal.propTypes = {
+    setCreateModalActive: PropTypes.func,
+    createModalActive: PropTypes.bool,
+    createNewTask: PropTypes.func,
+}
 
 export default CreateModal;

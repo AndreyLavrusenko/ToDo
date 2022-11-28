@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import CreateModal from "../modals/modal-create/CreateModal";
+import PropTypes from "prop-types";
 
 const TaskSetting = ({tasks, createModalActive, setCreateModalActive, createNewTask}) => {
     const [search, setSearch] = useState("")
@@ -10,7 +11,7 @@ const TaskSetting = ({tasks, createModalActive, setCreateModalActive, createNewT
         const arr = [];
 
         tasks.map(item => {
-            arr.push(...item.items)
+            return arr.push(...item.items)
         })
 
         setTasksItem(arr)
@@ -18,7 +19,7 @@ const TaskSetting = ({tasks, createModalActive, setCreateModalActive, createNewT
 
 
     const filteredTasks = tasksItem.filter(item => {
-        return item.title.toLowerCase().includes(search.toLowerCase())
+        return item.title.toLowerCase().includes(search.toLowerCase()) || Math.floor(item.id * 1000) === +search
     })
 
 
@@ -63,4 +64,13 @@ const TaskSetting = ({tasks, createModalActive, setCreateModalActive, createNewT
     );
 };
 
+
+TaskSetting.propTypes = {
+    tasks: PropTypes.array,
+    createModalActive: PropTypes.bool,
+    setCreateModalActive: PropTypes.func,
+    createNewTask: PropTypes.func,
+}
+
 export default TaskSetting;
+
