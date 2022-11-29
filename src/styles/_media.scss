@@ -32,11 +32,19 @@
 @media (max-width: 1200px) {
     .container {
         margin: 0 auto;
-        padding: 0 10px;
     }
 
     .tasks__border-item {
         margin-left: 20px;
+    }
+
+    .header-title {
+        margin-left: 20px;
+    }
+
+    .tasks__setting {
+        margin: 0 auto;
+        width: 95%;
     }
 }
 
