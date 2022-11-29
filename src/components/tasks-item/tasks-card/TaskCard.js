@@ -19,10 +19,16 @@ const TaskCard = ({
                       updateTask,
                       deleteSubtask,
                       selectSearch,
+                      addSubComment,
+                      projectId,
+                      addComment,
                   }) => {
     const [isSubtask, setIsSubtask] = useState(false)
     const [subtaskText, setSubtaskText] = useState("")
     const [changeModal, setChangeModal] = useState(false)
+
+    const [subMessage, setSubMessage] = useState("")
+    const [message, setMessage] = useState("")
 
     let priority
 
@@ -41,6 +47,27 @@ const TaskCard = ({
 
     const diff = timeEnd.diff(timeStart);
     const diffDuration = moment.duration(diff);
+
+
+    const handleSubMessage = (itemId, id) => {
+        if (subMessage === "") return
+
+        const messageId = "m"+Math.floor(Math.random() * 100000)
+        addSubComment(itemId, projectId, id, subMessage, messageId)
+
+        setSubMessage("")
+    }
+
+
+    const handleMessage = (itemId) => {
+        if (message === "") return
+
+        const messageId = "m"+Math.floor(Math.random() * 100000)
+        addComment(itemId, projectId, message, messageId)
+
+        setMessage("")
+    }
+
 
     return (
         <div
@@ -148,6 +175,38 @@ const TaskCard = ({
                     </div>
                     : null
                 }
+
+
+                <div className="tasks__card-chat">
+                    {item.comments.map((comment, i) => (
+                        <div key={i} className="tasks__card-chatblock">
+                            {comment.map((message, i) => {
+                                return (
+                                    <div key={message.messageId} style={{marginLeft: i * 10 + "px"}} className="tasks__card-chatmain">
+                                        <div className='tasks__card-chaticon'/>
+                                        <div className="tasks__card-chatitem" >{message.messageText}</div>
+                                    </div>
+                                )
+                            })}
+                            <input
+                                type="text"
+                                onBlur={() => {
+                                    handleSubMessage(item.id, i)
+                                    setSubMessage("")
+                                }}
+                                onChange={e => setSubMessage(e.target.value)}
+                                placeholder="Ваше сообщение"
+                            />
+                        </div>
+                    ))}
+                    <input
+                        type="text"
+                        placeholder="Ваше сообщение"
+                        onBlur={() => handleMessage(item.id)}
+                        onChange={e => setMessage(e.target.value)}
+                    />
+                </div>
+
             </div>
 
             {

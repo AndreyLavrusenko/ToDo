@@ -6,6 +6,8 @@ const DELETE_TASK = 'DELETE_TASK'
 const ADD_SUBTASK = 'ADD_SUBTASK'
 const UPDATE_TASK = 'UPDATE_TASK'
 const DELETE_SUBTASK = 'DELETE_SUBTASK'
+const ADD_SUBCOMMENT = 'ADD_SUBCOMMENT'
+const ADD_COMMENT = 'ADD_COMMENT'
 
 
 const initialState = {
@@ -19,42 +21,42 @@ const initialState = {
                     items: [
                         {
                             id: 1,
-                            title: "Пойти в магазин",
-                            desc: "Зайти в пятерочку",
+                            title: "Задача 1",
+                            desc: "Описание",
                             created: "23.11.2022",
                             fullTimeCreate: "",
                             expiration: "29-11-2022",
                             priority: "low",
                             files: "",
                             subtasks: [
-                                {id: 's1', title: "Посмотреть есть ли свежий хлеб", subtasksComplete: false},
-                                {id: 's2', title: "Взять кофе на вынос", subtasksComplete: false}
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: false},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: false}
                             ],
-                            comments: [],
+                            comments: [
+                                [
+                                    {messageId: "m1", messageText: "Сообщение 1"},
+                                    {messageId: "m2", messageText: "Сообщение 2"},
+                                ],
+                                [
+                                    {messageId: "m3", messageText: "Сообщение 1"},
+                                ]
+                            ],
                             isComplete: false
-
                         },
                         {
                             id: 2,
-                            title: "Купить корм",
-                            desc: "Зайти в пятерочку",
+                            title: "Задача 2",
+                            desc: "Описание",
                             created: "23.11.2022",
                             fullTimeCreate: "",
-                            expiration: "29.11.2022",
-                            priority: "important",  // important middle low
+                            expiration: "29-11-2022",
+                            priority: "low",
                             files: "",
                             subtasks: [
-                                {id: 's3', title: "Посмотреть есть ли свежий хлеб", subtasksComplete: true},
-                                {id: 's4', title: "Взять кофе на вынос", subtasksComplete: false}
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: false},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: false}
                             ],
                             comments: [],
-                            isComplete: false
-                        },
-                        {
-                            id: 3,
-                            title: "Сделать техническое задание",
-                            priority: "middle",
-                            subtasks: [],
                             isComplete: false
                         },
                     ]
@@ -65,15 +67,46 @@ const initialState = {
                     items: [
                         {
                             id: 4,
-                            title: "Зарядить телефон",
-                            priority: "middle",
-                            subtasks: [],
+                            title: "Задача 3",
+                            desc: "Описание",
+                            created: "23.11.2022",
+                            fullTimeCreate: "",
+                            expiration: "29-11-2022",
+                            priority: "low",
+                            files: "",
+                            subtasks: [
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: false},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: false}
+                            ],
+                            comments: [
+                                [
+                                    {messageId: "m1", messageText: "Сообщение 1"},
+                                ]
+
+                            ],
                             isComplete: false
                         },
                         {
                             id: 5,
-                            title: "Написать 4 строчки кода",
-                            subtasks: [],
+                            title: "Задача 4",
+                            desc: "Описание",
+                            created: "23.11.2022",
+                            fullTimeCreate: "",
+                            expiration: "29-11-2022",
+                            priority: "low",
+                            files: "",
+                            subtasks: [
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: true},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: false}
+                            ],
+                            comments: [
+                                [
+                                    {messageId: "m1", messageText: "Сообщение 1"},
+                                ],
+                                [
+                                    {messageId: "m3", messageText: "Сообщение 1"},
+                                ]
+                            ],
                             isComplete: false
                         },
                     ]
@@ -84,9 +117,24 @@ const initialState = {
                     items: [
                         {
                             id: 6,
-                            title: "Пообедать",
-                            subtasks: [],
-                            isComplete: false
+                            title: "Задача 5",
+                            desc: "Описание",
+                            created: "23.11.2022",
+                            fullTimeCreate: "",
+                            expiration: "29-11-2022",
+                            priority: "low",
+                            files: "",
+                            subtasks: [
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: true},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: true}
+                            ],
+                            comments: [
+                                [
+                                    {messageId: "m1", messageText: "Сообщение 1"},
+                                    {messageId: "m2", messageText: "Сообщение 2"},
+                                ],
+                            ],
+                            isComplete: true
                         }
                     ]
                 }
@@ -101,40 +149,42 @@ const initialState = {
                     items: [
                         {
                             id: 1,
-                            title: "Пойти в магазин",
-                            desc: "Зайти в пятерочку",
+                            title: "Задача 1",
+                            desc: "Описание",
                             created: "23.11.2022",
-                            inWork: "4h 12m",
-                            expiration: "29.11.2022",
-                            priority: "low",  // important medium low
-                            files: [],
+                            fullTimeCreate: "",
+                            expiration: "29-11-2022",
+                            priority: "low",
+                            files: "",
                             subtasks: [
-                                {id: 's1', title: "Посмотреть есть ли свежий хлеб"},
-                                {id: 's2', title: "Взять кофе на вынос"}
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: false},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: false}
                             ],
-                            comments: [],
+                            comments: [
+                                [
+                                    {messageId: "m1", messageText: "Сообщение 1"},
+                                    {messageId: "m2", messageText: "Сообщение 2"},
+                                ],
+                                [
+                                    {messageId: "m3", messageText: "Сообщение 1"},
+                                ]
+                            ],
                             isComplete: false
-
                         },
                         {
                             id: 2,
-                            title: "Купить корм",
-                            desc: "Зайти в пятерочку",
+                            title: "Задача 2",
+                            desc: "Описание",
                             created: "23.11.2022",
-                            inWork: "4h 12m",
-                            expiration: "29.11.2022",
-                            priority: "important",  // important medium low
-                            files: [],
+                            fullTimeCreate: "",
+                            expiration: "29-11-2022",
+                            priority: "low",
+                            files: "",
                             subtasks: [
-                                {id: 's1', title: "Посмотреть есть ли свежий хлеб"},
-                                {id: 's2', title: "Взять кофе на вынос"}
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: false},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: false}
                             ],
                             comments: [],
-                            isComplete: true
-                        },
-                        {
-                            id: 3,
-                            title: "Сделать техническое задание",
                             isComplete: false
                         },
                     ]
@@ -145,12 +195,46 @@ const initialState = {
                     items: [
                         {
                             id: 4,
-                            title: "Зарядить телефон",
+                            title: "Задача 3",
+                            desc: "Описание",
+                            created: "23.11.2022",
+                            fullTimeCreate: "",
+                            expiration: "29-11-2022",
+                            priority: "low",
+                            files: "",
+                            subtasks: [
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: false},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: false}
+                            ],
+                            comments: [
+                                [
+                                    {messageId: "m1", messageText: "Сообщение 1"},
+                                ]
+
+                            ],
                             isComplete: false
                         },
                         {
                             id: 5,
-                            title: "Написать 4 строчки кода",
+                            title: "Задача 4",
+                            desc: "Описание",
+                            created: "23.11.2022",
+                            fullTimeCreate: "",
+                            expiration: "29-11-2022",
+                            priority: "low",
+                            files: "",
+                            subtasks: [
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: true},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: false}
+                            ],
+                            comments: [
+                                [
+                                    {messageId: "m1", messageText: "Сообщение 1"},
+                                ],
+                                [
+                                    {messageId: "m3", messageText: "Сообщение 1"},
+                                ]
+                            ],
                             isComplete: false
                         },
                     ]
@@ -161,8 +245,152 @@ const initialState = {
                     items: [
                         {
                             id: 6,
-                            title: "Пообедать",
+                            title: "Задача 5",
+                            desc: "Описание",
+                            created: "23.11.2022",
+                            fullTimeCreate: "",
+                            expiration: "29-11-2022",
+                            priority: "low",
+                            files: "",
+                            subtasks: [
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: true},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: true}
+                            ],
+                            comments: [
+                                [
+                                    {messageId: "m1", messageText: "Сообщение 1"},
+                                    {messageId: "m2", messageText: "Сообщение 2"},
+                                ],
+                            ],
+                            isComplete: true
+                        }
+                    ]
+                }
+            ],
+        },
+        {
+            projectId: 3,
+            tasks: [
+                {
+                    id: 'q1',
+                    title: "В очереди 🚀",
+                    items: [
+                        {
+                            id: 1,
+                            title: "Задача 1",
+                            desc: "Описание",
+                            created: "23.11.2022",
+                            fullTimeCreate: "",
+                            expiration: "29-11-2022",
+                            priority: "low",
+                            files: "",
+                            subtasks: [
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: false},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: false}
+                            ],
+                            comments: [
+                                [
+                                    {messageId: "m1", messageText: "Сообщение 1"},
+                                    {messageId: "m2", messageText: "Сообщение 2"},
+                                ],
+                                [
+                                    {messageId: "m3", messageText: "Сообщение 1"},
+                                ]
+                            ],
                             isComplete: false
+                        },
+                        {
+                            id: 2,
+                            title: "Задача 2",
+                            desc: "Описание",
+                            created: "23.11.2022",
+                            fullTimeCreate: "",
+                            expiration: "29-11-2022",
+                            priority: "low",
+                            files: "",
+                            subtasks: [
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: false},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: false}
+                            ],
+                            comments: [],
+                            isComplete: false
+                        },
+                    ]
+                },
+                {
+                    id: 'q2',
+                    title: "Выполняется 🔥",
+                    items: [
+                        {
+                            id: 4,
+                            title: "Задача 3",
+                            desc: "Описание",
+                            created: "23.11.2022",
+                            fullTimeCreate: "",
+                            expiration: "29-11-2022",
+                            priority: "low",
+                            files: "",
+                            subtasks: [
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: false},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: false}
+                            ],
+                            comments: [
+                                [
+                                    {messageId: "m1", messageText: "Сообщение 1"},
+                                ]
+
+                            ],
+                            isComplete: false
+                        },
+                        {
+                            id: 5,
+                            title: "Задача 4",
+                            desc: "Описание",
+                            created: "23.11.2022",
+                            fullTimeCreate: "",
+                            expiration: "29-11-2022",
+                            priority: "low",
+                            files: "",
+                            subtasks: [
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: true},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: false}
+                            ],
+                            comments: [
+                                [
+                                    {messageId: "m1", messageText: "Сообщение 1"},
+                                ],
+                                [
+                                    {messageId: "m3", messageText: "Сообщение 1"},
+                                ]
+                            ],
+                            isComplete: false
+                        },
+                    ]
+                },
+                {
+                    id: 'q3',
+                    title: "Готово 😁",
+                    items: [
+                        {
+                            id: 6,
+                            title: "Задача 5",
+                            desc: "Описание",
+                            created: "23.11.2022",
+                            fullTimeCreate: "",
+                            expiration: "29-11-2022",
+                            priority: "low",
+                            files: "",
+                            subtasks: [
+                                {id: 's1', title: "Подзадача 1", subtasksComplete: true},
+                                {id: 's2', title: "Подзадача 2", subtasksComplete: true}
+                            ],
+                            comments: [
+                                [
+                                    {messageId: "m1", messageText: "Сообщение 1"},
+                                    {messageId: "m2", messageText: "Сообщение 2"},
+                                ],
+                            ],
+                            isComplete: true
                         }
                     ]
                 }
@@ -191,7 +419,6 @@ const tasksReducer = (state = JSON.parse(localStorage.getItem("tasksProject")), 
             })
 
             return state;
-
 
         case UPDATE_COMPLETE_TASKS:
             return {
@@ -227,7 +454,6 @@ const tasksReducer = (state = JSON.parse(localStorage.getItem("tasksProject")), 
                     return item
                 })
             }
-
 
         case UPDATE_COMPLETE_SUBTASKS:
             return {
@@ -308,7 +534,6 @@ const tasksReducer = (state = JSON.parse(localStorage.getItem("tasksProject")), 
                 })
             }
 
-
         case ADD_SUBTASK:
             return {
                 ...state,
@@ -338,7 +563,6 @@ const tasksReducer = (state = JSON.parse(localStorage.getItem("tasksProject")), 
                     return item
                 })
             }
-
 
         case UPDATE_TASK:
 
@@ -396,6 +620,63 @@ const tasksReducer = (state = JSON.parse(localStorage.getItem("tasksProject")), 
                 })
             }
 
+        case ADD_SUBCOMMENT:
+            return {
+                ...state,
+                tasksProject: state.tasksProject.map(item => {
+                    // Если список совпадает
+                    if (+item.projectId === +action.projectId) {
+                        // Смотрим все состояние tasks
+                        item.tasks.map(task => {
+                            // Перебираем id в tasks
+                            task.items.map(taskId => {
+                                if (taskId.id === action.itemId) {
+                                    const newComment = {
+                                        messageId: action.messageId,
+                                        messageText: action.messageText,
+                                    }
+
+                                    taskId.comments[action.id].push(newComment)
+                                }
+                                return taskId
+                            })
+                            return task
+                        })
+                        localStorage.setItem("tasksProject", JSON.stringify(state))
+                    }
+                    return item
+                })
+            }
+
+        case ADD_COMMENT:
+            return {
+                ...state,
+                tasksProject: state.tasksProject.map(item => {
+                    // Если список совпадает
+                    if (+item.projectId === +action.projectId) {
+                        // Смотрим все состояние tasks
+                        item.tasks.map(task => {
+                            // Перебираем id в tasks
+                            task.items.map(taskId => {
+                                if (taskId.id === action.itemId) {
+                                    const newComment = {
+                                        messageId: action.messageId,
+                                        messageText: action.messageText,
+                                    }
+
+                                    taskId.comments.push([newComment])
+                                }
+                                return taskId
+                            })
+                            return task
+                        })
+                        localStorage.setItem("tasksProject", JSON.stringify(state))
+                    }
+                    return item
+                })
+            }
+
+
         default:
             return state;
     }
@@ -432,6 +713,14 @@ export const updateTask = (itemId, projectId, array) => {
 
 export const deleteSubtask = (itemId, projectId, taskId) => {
     return {type: DELETE_SUBTASK, itemId, projectId, taskId}
+}
+
+export const addSubComment = (itemId, projectId, id, messageText, messageId) => {
+    return {type: ADD_SUBCOMMENT, itemId, projectId, id, messageText, messageId}
+}
+
+export const addComment = (itemId, projectId, messageText, messageId) => {
+    return {type: ADD_COMMENT, itemId, projectId, messageText, messageId}
 }
 
 export default tasksReducer

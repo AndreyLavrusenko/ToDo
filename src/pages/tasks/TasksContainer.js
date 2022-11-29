@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from "react-redux";
 import Tasks from "./Tasks";
 import {
+    addComment,
+    addSubComment,
     addSubtask,
     createNewTask, deleteSubtask, deleteTask,
     updateCompleteSubtask,
@@ -48,6 +50,14 @@ const mapDispatchToProps = dispatch => {
 
         deleteSubtask: (itemId, projectId, taskId) => {
             dispatch(deleteSubtask(itemId, projectId, taskId))
+        },
+
+        addSubComment: (itemId, projectId, id, messageText, messageId) => {
+            dispatch(addSubComment(itemId, projectId, id, messageText, messageId))
+        },
+
+        addComment: (itemId, projectId, messageText, messageId) => {
+            dispatch(addComment(itemId, projectId, messageText, messageId))
         }
     }
 }

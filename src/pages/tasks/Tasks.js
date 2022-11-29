@@ -16,7 +16,9 @@ const Tasks = ({
                    deleteTask,
                    updateTask,
                    addSubtask,
-                   deleteSubtask
+                   deleteSubtask,
+                   addSubComment,
+                   addComment,
                }) => {
 
     const [createModalActive, setCreateModalActive] = useState(false)
@@ -79,6 +81,8 @@ const Tasks = ({
                         updateTask={updateTask}
                         deleteSubtask={deleteSubtask}
                         selectSearch={selectSearch}
+                        addSubComment={addSubComment}
+                        addComment={addComment}
                     />
                 ))}
 
@@ -95,6 +99,11 @@ Tasks.propsType = {
     updateCompleteSubtask: PropTypes.func,
     createNewTask: PropTypes.func,
     deleteTask: PropTypes.func,
+    updateTask: PropTypes.func,
+    addSubtask: PropTypes.func,
+    deleteSubtask: PropTypes.func,
+    addSubComment: PropTypes.func,
+    addComment: PropTypes.func,
 }
 
 export default Tasks;

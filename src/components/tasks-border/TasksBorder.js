@@ -17,6 +17,8 @@ const TasksBorder = ({
                          addSubtask,
                          deleteSubtask,
                          selectSearch,
+                         addSubComment,
+                         addComment,
                      }) => {
 
     function dragOverHandler(e) {
@@ -75,6 +77,8 @@ const TasksBorder = ({
                 deleteSubtask={deleteSubtask}
                 updateTask={updateTask}
                 selectSearch={selectSearch}
+                addSubComment={addSubComment}
+                addComment={addComment}
             />
         </div>
     );
@@ -94,4 +98,10 @@ TasksBorder.propsType = {
     updateCompleteTask: PropTypes.func,
     updateCompleteSubtask: PropTypes.func,
     deleteTask: PropTypes.func,
+    updateTask: PropTypes.func,
+    addSubtask: PropTypes.func,
+    deleteSubtask: PropTypes.func,
+    selectSearch: PropTypes.array,
+    addSubComment: PropTypes.func,
+    addComment: PropTypes.func,
 }
